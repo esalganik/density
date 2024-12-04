@@ -1,4 +1,4 @@
-Salganik et al. [2024] Impacts of air fraction increase on Arctic sea-ice thickness retrieval during melt season
+Salganik et al. [2024] Impacts of air fraction increase on Arctic sea-ice density, freeboard, and thickness estimation during melt season
 _______________________________________________________________________________________
 
 MATLAB codes are provided to convert MOSAiC observations from coring, airborne laser scanner, and underwater sonar to sea-ice density and air volume estimates.
