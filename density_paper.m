@@ -172,7 +172,7 @@ t_tr = datetime(['19-Jun-2020';'21-Jun-2020';'27-Jun-2020';'29-Jun-2020';'30-Jun
 h_sn_tr =       [       0.129          0.135       0.0942         0.089          0.10        0.1048        0.0863         0.068         0.077        0.0584         0.052        0.0584        0.0531         0.053         0.054         0.064        0.0531        0.0518         0.061         0.045          0.041         0.044]; % snow or SSL depth from Webster (2022)
 clearvars i j vb_limit T_T66 T_T62 vb_sy vb_pr_sy dT_fy dT_sy fbrho_fy fbrho_sy hd_fy hd_sy
 
-%% Figure 1: density historical overview
+%% Figure 1: density historical overview (6.2 x 2.2 in)
 load("density_data.mat","rho_fy_mosaic","t_mosaic","T_hist","rho_hist","T_mosaic","src_hist","t_hist","c"); % data import
 % analytical gas-free density for FYI with a fixed salinity
 T_anal = -30:0.05:-0.1; Si = 2; % temperature range and post-melt salinity
@@ -192,16 +192,16 @@ rho_fons = [920 920 915 915 875 875 900 900 920 920]; % from Fons et al. (2023),
 figure
 tile = tiledlayout(1,2); tile.TileSpacing = 'compact'; tile.Padding = 'compact';
 nexttile
-p = plot(t_hist([4 6:32 34:end]),rho_hist([4 6:32 34:end]),'kx'); p.MarkerSize = 4; hold on % Timco & Frederking 1996
-p = plot(t_hist(38),rho_hist(38),'x','Color',c{3}); p.MarkerSize = 4; % Alexandrov 2010
-p = plot(t_hist(34:37),rho_hist(34:37),'x','Color',c{5}); p.MarkerSize = 4; % Forsstrom 2011
-p = plot(t_hist(33),rho_hist(33),'x','Color',c{2}); p.MarkerSize = 4; % Wang 2020
-p = plot(t_hist(42:43),rho_hist(42:43),'x','Color',c{4}); p.MarkerSize = 4; % Jutila 2022
-p = plot(t_fons,rho_fons,':','Color','k','LineWidth',2.5); p.MarkerSize = 4; % Fons et al. (2023), doi:10.5194/tc-17-2487-2023
+p = plot(t_hist([4 6:32 34:end]),rho_hist([4 6:32 34:end]),'kx'); p.MarkerSize = 4; hold on % Timco & Frederking 1996, doi:10.1016/0165-232X(95)00007-X
+p = plot(t_hist(38),rho_hist(38),'x','Color',c{3}); p.MarkerSize = 4; % Alexandrov 2010, doi:10.5194/tc-4-373-2010
+p = plot(t_hist(34:37),rho_hist(34:37),'x','Color',c{5}); p.MarkerSize = 4; % Forsstrom 2011, doi:10.3189/172756411795931598
+p = plot(t_hist(33),rho_hist(33),'x','Color',c{2}); p.MarkerSize = 4; % Wang 2020, doi:10.1029/2020jc016371
+p = plot(t_hist(42:43),rho_hist(42:43),'x','Color',c{4}); p.MarkerSize = 4; % Jutila 2022, doi:10.5194/tc-16-259-2022
+p = plot(t_fons,rho_fons,':','Color','k','LineWidth',2.5); p.MarkerSize = 4; % Fons (2023), doi:10.5194/tc-17-2487-2023
 p = plot(t_mosaic(8:21),rho_fy_mosaic(8:21),'o:','Color',c{1},'LineWidth',3.0); p.MarkerSize = 2; set(p,'markerfacecolor',get(p,'color')); % MOSAiC, winter and spring
 p = plot(t_mosaic(1:7),rho_fy_mosaic(1:7),'o:','Color',c{1},'LineWidth',3.0); p.MarkerSize = 2; set(p,'markerfacecolor',get(p,'color')); % MOSAiC, autumn
 p = plot(t_mosaic(22:27),rho_fy_mosaic(22:27),'o:','Color',c{1},'LineWidth',3.0); p.MarkerSize = 2; set(p,'markerfacecolor',get(p,'color')); % MOSAiC, leg 5
-leg = legend('Timco et al., 1996','Alexandrov, 2010','Forsstrom et al., 2011','Wang et al., 2020','Jutila et al., 2022','Fons et al., 2023','MOSAiC','box','off','NumColumns',1); set(leg,'FontSize',6,'Location','southwest'); leg.ItemTokenSize = [30*0.5,18*0.5];
+leg = legend('Timco et al., 1996','Alexandrov et al., 2010','Forsstrom et al., 2011','Wang et al., 2020','Jutila et al., 2022','Fons et al., 2023','MOSAiC','box','off','NumColumns',1); set(leg,'FontSize',6,'Location','southwest'); leg.ItemTokenSize = [30*0.4,18*0.4];
 hYLabel = ylabel('FYI density (kg  m^-^3)'); set([hYLabel gca],'FontSize',8,'FontWeight','normal');
 ax = gca; ax.XTick = datetime(['01-Jan-2020';'01-Mar-2020';'01-May-2020';'01-Jul-2020';'01-Sep-2020';'01-Nov-2020';'01-Jan-2021']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
@@ -274,12 +274,12 @@ edge0728_85(1,2) = edge0728_85(1,2)-0.1; m_line(smooth(edge0728_85(:,1),5,'sgola
 m_line(smooth(edge0728_15(:,1),5,'sgolay'),smooth(edge0728_15(:,2),5,'sgolay'),'color','k','linewi',0.05); % sea ice edge AMSR2, 15%
 clim([-6000 0]);
 colormap(ax(1),m_colmap('blue'));
-C = linspecer(length(7500:13165));
+C = linspecer(length(7500:13165)); % Jonathan C. Lansey (2025), https://www.mathworks.com/matlabcentral/fileexchange/42673-beautiful-and-distinguishable-line-colors-colormap
 m_line(long_gps_T66(9037:13165),lat_gps_T66(9037:13165),'color',c{2},'linewi',2.0); hold on % drift during sonar surveys
 for i = 9038:10:13165
     m_line(long_gps_T66(i),lat_gps_T66(i),'marker','o','color',C(i-7499,:),'markerfacecolor',C(i-7499,:),'linewi',0.1,'markersize',2);
 end
-m_line(long_gps_T66(9037),lat_gps_T66(9037),'marker','o','color','k','markerfacecolor',C(9038-7499,:),'linewi',0.5,'markersize',5); % 22 June
+m_line(long_gps_T66(9037), lat_gps_T66(9037), 'marker','o','color','k','markerfacecolor',C(9038-7499 ,:),'linewi',0.5,'markersize',5); % 22 June
 m_line(long_gps_T66(11389),lat_gps_T66(11389),'marker','o','color','k','markerfacecolor',C(11389-7499,:),'linewi',0.5,'markersize',5); % 22 June
 m_line(long_gps_T66(12061),lat_gps_T66(12061),'marker','o','color','k','markerfacecolor',C(12061-7499,:),'linewi',0.5,'markersize',5); % 06 July
 m_line(long_gps_T66(12397),lat_gps_T66(12397),'marker','o','color','k','markerfacecolor',C(12397-7499,:),'linewi',0.5,'markersize',5); % 13 July
@@ -297,7 +297,7 @@ p = m_text(-8,76.9,'SIC 15%'); set(p,'HorizontalAlignment','center','FontSize',6
 title('Coring locations','FontSize',7,'FontWeight','normal');
 
 nexttile % optical image of CO2 ice floe with coring and ROV sites
-imagesc(x,y,J); hold on
+imagesc(x,y,J); hold on % image from Neckel et al. (2023), doi:10.1594/PANGAEA.949433
 values = spcrv([ort_fyi(:,1)'/1000;ort_fyi(:,2)'/1000],3); plot(values(1,:),values(2,:),'-','color',c{1},'LineWidth',3); hold on % FYI area
 values = spcrv([ort_fyi(1:80,1)'/1000+0.018;ort_fyi(1:80,2)'/1000],3); plot(values(1,:),values(2,:),'-','color',c{2},'LineWidth',3); % FYI-SYI border
 values = spcrv([ort_syi(:,1)'/1000;ort_syi(:,2)'/1000],3); plot(values(1,:),values(2,:),'-','color',c{2},'LineWidth',3); % SYI area
@@ -356,7 +356,6 @@ title('First-year ice density','FontSize',7,'FontWeight','normal');
 for i = 19:22; p = text(td(i),drho_fy_top_lvl(i-2)+0.08,sprintf('%.0f',rho_si_pr_bulk_fy(i) )); set(p,'Color',c{1},'HorizontalAlignment','center','FontSize',7); end % bulk density, text
 for i = 23; p = text(td(i)-1.8,drho_fy_top_lvl(i-2)+0.08,sprintf('%.0f',rho_si_pr_bulk_fy(i) )); set(p,'Color',c{1},'HorizontalAlignment','center','FontSize',7); end % bulk density, text
 for i = 18; p = text(td(i)+1.6,drho_fy_top_lvl(i-2)+0.08,sprintf('%.0f',rho_si_pr_bulk_fy(i) )); set(p,'Color',c{1},'HorizontalAlignment','center','FontSize',7); end % bulk density, text
-
 axes('Position',[.7335 .133 .0182 .03]); % axis break (c)
 px=[0 0]; py=[0 1]; w=2; px2=px+w; fill([px flip(px2)],[py flip(py)],'w','EdgeColor','none'); hold all;
 plot(px,py,'k',px2,py,'k','linewidth',0.1); box off; axis off;
@@ -367,6 +366,7 @@ annotation('textbox',[0.44 .51 0.44 .51],'String','(c)','FontSize',9,'EdgeColor'
 
 %% Figure 3: Illustration of different freeboard and draft for pre-melt sea ice, and for sea ice with undrained and drained melt ponds
 amp = 0.20; hmp = 0.25; hi = 1.0; rhosi = 900; rhow = 1000; rhosn = 300; hsn = 0.15; % chosen physical properties for illustration
+% amp - melt pond area; hmp - melt pond depth, rhosi - ice density, rhow - water density, rhosn - snow density, hsn - snow thickness
 fb_in = hi - hi*rhosi/rhow; % freeboard before ponding
 fb_ponded = hi*(1-(1-amp)*rhosi/rhow)+(hmp-hi)*amp*rhosi/rhow-amp*hmp; % freeboard, ponded undrained
 fb_drained_unponded = hi-rhosi/rhow*(hi-amp*hmp); % drained, unponded part only
@@ -436,7 +436,7 @@ annotation('textbox',[0.24 .51 0.25 .51],'String','(b)','FontSize',10,'EdgeColor
 annotation('textbox',[0.47 .51 0.48 .51],'String','(c)','FontSize',10,'EdgeColor','none','HorizontalAlignment','center');
 clearvars amp fb fb_deep fb_deep_eff fb_deep_sn fb_deep_sn_eff fb_drained_sn fb_drained_eff fb_drained_true fb_drained_sn_eff fb_drained_sn_true fb_drained_unponded fb_in fb_in_sn fb_ponded fb_ponded_sn hi hmp hsn rhosi rhosn rhow w
 
-%% Figure 4: Summer gas and brine volume, ice density, and freeboard
+%% Figure 4: Summer gas and brine volume, ice density, and freeboard (6.2 x 2.5 in)
 a_mp_cor = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 15 18 16 20]/100; % melt pond fraction from transect, from Webster et al. (2022)
 hs_fy(19:23) = [7.5 5 5 5 5]/100.*[1-a_mp_cor(19) 1-a_mp_cor(20) 1-a_mp_cor(21) 1-a_mp_cor(22) 1-a_mp_cor(23)];
 CT = T_fy_b; SA(1:20) = 33.7; SA(19:23) = Sb_fy_ct(3:7); rho_sw = gsw_rho(SA,CT,0); % seawater density
@@ -447,10 +447,12 @@ melt = 19:23; premelt = 15:18;
 figure
 tile = tiledlayout(2,3); tile.TileSpacing = 'compact'; tile.Padding = 'compact';
 nexttile % freeboard
-t_ALS = datetime(['21-Mar-2020';'08-Apr-2020';'23-Apr-2020';'10-May-2020';'30-Jun-2020';'04-Jul-2020';'17-Jul-2020';'22-Jul-2020']); fb_sn_FYI_ALS = [0.2376 0.2643 0.2589 0.2805 0.206 0.111 0.177 0.192];
-sn_FYI_ALS = [0.124 0.124 0.147 0.157 0.08 0.048 0.048 0.048]; fb_FYI_ALS = fb_sn_FYI_ALS - sn_FYI_ALS;
+t_ALS = datetime(['21-Mar-2020';'08-Apr-2020';'23-Apr-2020';'10-May-2020';'30-Jun-2020';'04-Jul-2020';'17-Jul-2020';'22-Jul-2020']); % ALS scan time
+fb_sn_FYI_ALS = [0.2376 0.2643 0.2589 0.2805 0.206 0.111 0.177 0.192]; % ALS snow freeboard for FYI ROV site, estimates from Figure 6
+sn_FYI_ALS = [0.124 0.124 0.147 0.157 0.08 0.048 0.048 0.048]; % Assumed level ice snow thickness for each ALS scan
+fb_FYI_ALS = fb_sn_FYI_ALS - sn_FYI_ALS; % Ice freeboard from snow freeboard
 hs_web = hs_fy;
-msz = 2.2;
+msz = 2.2; % marker size
 fill([t_fy(19)-15 t_fy(19)-15 t_fy(19)-5 t_fy(19)-5],[1 0 0 1],1,'FaceColor',c{1},'EdgeColor','none') ;alpha(.1); hold on % shade
 fill([t_fy(21)-3 t_fy(21)-3 t_fy(21)+1 t_fy(21)+1],[1 0 0 1],1,'FaceColor',c{2},'EdgeColor','none') ;alpha(.1); hold on % shade, melt pond drainage
 errorbar(t_fy(19)-10,mean(h_fy_avg(premelt)-d_fy_avg(premelt))/100,std(h_fy_avg(premelt)-d_fy_avg(premelt))/100,'color',[0.72 0.82 0.92]);
@@ -464,8 +466,6 @@ prt = [5 7:8]; p = plot([t_fy(19)-8; t_ALS(prt)],[mean(fb_sn_FYI_ALS(1:4)) fb_sn
 prt = [5 7:8]; p = plot([t_fy(19)-8; t_ALS(prt)],[mean(fb_FYI_ALS(1:4)) fb_FYI_ALS(prt)],'o-','Color',c{2}); p.MarkerSize = msz; set(p,'markerfacecolor',get(p,'color'));
 prt = [5 7:8]; p = plot([t_fy(19)-8; t_ALS(prt)],[mean(fb_sn_FYI_ALS(1:4)) fb_sn_FYI_ALS(prt)],'o','Color',c{2},'LineWidth',1); p.MarkerSize = msz; set(p,'markerfacecolor','w');
 p = plot([t_fy(19)-12 t_fy(melt)],[mean((h_fy_avg(premelt)-d_fy_avg(premelt))/100+hs_web(premelt)) (h_fy_avg(melt)-d_fy_avg(melt))/100+hs_web(melt)],'o','Color',c{1},'LineWidth',1); p.MarkerSize = msz; set(p,'markerfacecolor','w'); hold on
-% prt = 6; p = plot([t_fy(19)-8; t_ALS(prt)],[mean(fb_sn_FYI_ALS(1:4)) fb_sn_FYI_ALS(prt)],'o','Color',c{2},'LineWidth',1); p.MarkerSize = msz; set(p,'markerfacecolor','w');
-% prt = 6; p = plot([t_fy(19)-8; t_ALS(prt)],[mean(fb_FYI_ALS(1:4)) fb_FYI_ALS(prt)],'o','Color',c{2}); p.MarkerSize = msz; set(p,'markerfacecolor',get(p,'color'));
 fill([t_fy(19)-5 t_fy(19)-5 t_fy(19)-5+2 t_fy(19)-5+2],[1 0 0 1],1,'FaceColor','w','EdgeColor','none'); hold on % white break in axis
 hYLabel = ylabel('FYI freeboard (m)'); set([hYLabel gca],'FontSize',8,'FontWeight','normal'); ylim([0.0 0.40])
 leg = legend('','','','','','','','Snow, coring','Ice, coring','Snow, ROV','Ice, ROV','box','off','NumColumns',2); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.44,18*0.44];
@@ -713,13 +713,13 @@ annotation('textbox',[0.33 .51 0.33 .51],'String','(c)','FontSize',7,'EdgeColor'
 annotation('textbox',[0.49 .51 0.50 .51],'String','(d)','FontSize',7,'EdgeColor','none','HorizontalAlignment','center');
 annotation('textbox',[0.01 .26 0.01 .26],'String','(e)','FontSize',7,'EdgeColor','none','HorizontalAlignment','center');
 
-%% Figure 7: Bulk parameters for all ice types
+%% Figure 7: Bulk parameters for all ice types (6.2 x 3.5 in)
 figure
 tile = tiledlayout(4,2); tile.TileSpacing = 'compact'; tile.Padding = 'compact';
 nexttile % snow thickness
-p = plot(t_fy,hs_fy,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on  % FYI coring
+p = plot(t_fy,hs_fy,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % FYI coring
 p = plot(t_sy,hs_sy/100,'o','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring
-p = plot([t_tr_old; t_tr(1); t_tr],[h_sn_tr_old NaN h_sn_tr],'-','color',c{3},'LineWidth',1); p.MarkerSize = 2; set(p,'markerfacecolor',get(p,'color')); % Level ice, transect
+p = plot([t_tr_old; t_tr(1); t_tr],[h_sn_tr_old NaN h_sn_tr],'-','color',c{3},'LineWidth',1); p.MarkerSize = 2; set(p,'markerfacecolor',get(p,'color')); % Level ice, transect, from Itkin et al., doi:10.1525/elementa.2022.00048
 p = plot(t_fy,hs_fy,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on  % FYI coring
 leg = legend('FYI','SYI','Transect, level ice','box','off','NumColumns',3); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.33,18*0.33];
 hYLabel = ylabel('Snow thickness (m)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([0 0.30]); yticks(0:0.10:0.3);
@@ -733,39 +733,39 @@ hYLabel = ylabel('Salinity'); set(gca,'FontSize',9,'FontWeight','normal'); set(h
 ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr-2020';'01-Jun-2020';'01-Aug-2020']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
 nexttile % freeboard
-p = plot(t_fy,fb_fy,'o-','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
-p = plot(t_sy,fb_sy,'o-','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
+p = plot(t_fy,fb_fy,'o-','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % FYI coring
+p = plot(t_sy,fb_sy,'o-','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % SYI coring
 leg = legend('FYI','SYI','box','off','NumColumns',1); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.33,18*0.33];
 hYLabel = ylabel('Freeboard (m)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([0 0.30]); yticks(0:0.10:0.3);
 ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr-2020';'01-Jun-2020';'01-Aug-2020']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
 nexttile % temperature
-p = plot(t_fy,T_fy_bulk,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
-p = plot(t_sy,T_sy_bulk,'o','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-plot(t_T66(1:end),mean(frz_T66(1:end,:),2,'omitnan'),'color',[0.92 0.82 0.82],'linewidth',0.1); hold on % FYI bulk IMB
-plot(t_T62(1:end),mean(frz_T62(1:end,:),2,'omitnan'),'color',[0.72 0.82 0.92],'linewidth',0.1); % SYI bulk IMB
-p = plot(t_fy,T_fy_bulk,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-p = plot(t_sy,T_sy_bulk,'o','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
+p = plot(t_fy,T_fy_bulk,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % FYI coring
+p = plot(t_sy,T_sy_bulk,'o','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring
+plot(t_T66(1:end),mean(frz_T66(1:end,:),2,'omitnan'),'color',[0.72 0.82 0.92],'linewidth',0.1); hold on % FYI bulk IMB
+plot(t_T62(1:end),mean(frz_T62(1:end,:),2,'omitnan'),'color',[0.92 0.82 0.82],'linewidth',0.1); % SYI bulk IMB
+p = plot(t_fy,T_fy_bulk,'o','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % FYI coring
+p = plot(t_sy,T_sy_bulk,'o','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring
 leg = legend('FYI','SYI','FYI (IMB)','SYI (IMB)','box','off','NumColumns',2); set(leg,'FontSize',7,'Location','north'); leg.ItemTokenSize = [30*0.33,18*0.33];
 hYLabel = ylabel('Temperature (°C)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([-12 1])
 ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr-2020';'01-Jun-2020';'01-Aug-2020']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
 nexttile % ice thickness
 CT = T_fy_b; SA(1:20) = 33.7; SA(19:23) = Sb_fy_ct(3:7); rho_sw = gsw_rho(SA,CT,0); % seawater density
-a_mp_cor = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 15 18 16 20]/100;
-hs_fy(22:23) = [5.2 4.4]/100;
+a_mp_cor = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 15 18 16 20]/100; % melt pond fraction, Webster et al., doi:10.1525/elementa.2021.000072
+hs_fy(22:23) = [5.2 4.4]/100; % snow thickness from snow pits not recorded during coring events
 fb_bal = h_fy_avg/100 - (hs_fy.*rho_s.*(1-a_mp_cor) + rho_si_pr_bulk_fy.*h_fy_avg/100)./rho_sw; % FYI freeboard assuming hydrostatic balance
-p = plot(t_fy,h_fy_avg/100,'o-','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
-p = plot(t_sy,h_sy_avg/100,'o-','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
+p = plot(t_fy,h_fy_avg/100,'o-','LineWidth',0.5,'color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % FYI coring
+p = plot(t_sy,h_sy_avg/100,'o-','LineWidth',0.5,'color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % SYI coring
 leg = legend('FYI','SYI','box','off','NumColumns',1); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.33,18*0.33];
 hYLabel = ylabel('Thickness (m)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([0 3]); set(gca,'YDir','reverse'); % reverse y-axis
 ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr-2020';'01-Jun-2020';'01-Aug-2020']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
 nexttile % brine volume
-p = plot(t_fy(~isnan(vb_bulk_fy)),vb_bulk_fy(~isnan(vb_bulk_fy))/10,'o','color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on;
-p = plot(t_sy(~isnan(vb_bulk_sy)),vb_bulk_sy(~isnan(vb_bulk_sy))/10,'o','color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-p = plot(t_T66,smooth(vb_bulk_fy_int/10,50,'sgolay'),'-','color',[0.72 0.82 0.92]); set(p,'LineWidth',0.5);
-p = plot(t_T62(1:end-47),smooth(vb_bulk_sy_int/10,50,'sgolay'),'b-','color',[0.92 0.82 0.82]); set(p,'LineWidth',0.5);
+p = plot(t_fy(~isnan(vb_bulk_fy)),vb_bulk_fy(~isnan(vb_bulk_fy))/10,'o','color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on; % FYI coring
+p = plot(t_sy(~isnan(vb_bulk_sy)),vb_bulk_sy(~isnan(vb_bulk_sy))/10,'o','color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring
+p = plot(t_T66,smooth(vb_bulk_fy_int/10,50,'sgolay'),'-','color',[0.72 0.82 0.92]); set(p,'LineWidth',0.5); % FYI coring salinity, IMB temperature
+p = plot(t_T62(1:end-47),smooth(vb_bulk_sy_int/10,50,'sgolay'),'b-','color',[0.92 0.82 0.82]); set(p,'LineWidth',0.5); % SYI coring salinity, IMB temperature
 p = plot(t_fy(~isnan(vb_bulk_fy)),vb_bulk_fy(~isnan(vb_bulk_fy))/10,'o','color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
 p = plot(t_sy(~isnan(vb_bulk_sy)),vb_bulk_sy(~isnan(vb_bulk_sy))/10,'o','color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
 leg = legend('FYI','SYI','FYI, IMB temp.','SYI, IMB temp.','box','off','NumColumns',2); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.5,18*0.5];
@@ -774,22 +774,21 @@ ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr
 ylim([0 30]); yticks(0:5:30);
 
 nexttile % density
-t_cor_ridge = [datetime('10-Jul-2020 12:00') datetime('15-Jul-2020 12:00') datetime('27-Jul-2020 12:00')]; vg_ridge = [3.23 3.23 3.48]; rho_ridge = [896.6 894.1 889.2];
-t_cor_bhj = [datetime('02-Jul-2020 12:00')]; vg_bhj = 51/10;
+t_cor_ridge = [datetime('10-Jul-2020 12:00') datetime('15-Jul-2020 12:00') datetime('27-Jul-2020 12:00')]; vg_ridge = [3.23 3.23 3.48]; rho_ridge = [896.6 894.1 889.2]; % ridge density, doi:10.1594/PANGAEA.953865 
 p = plot(t_fy([1:3 5:6 8:23]),rho_si_pr_bulk_fy([1:3 5:6 8:23]),'o-','Color',c{1}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
 p = plot(t_sy([1:3 5:14]),rho_si_pr_bulk_sy([1:3 5:14]),'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
 p = plot(t_sy(15:18),rho_si_pr_bulk_sy(15:18),'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
 p = plot(t_cor_ridge,rho_ridge,'o-','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-p = plot([datetime('22-Apr-2020') datetime('05-May-2020')],[907.4 903.0],'o','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % RMRF
-leg = legend('FYI','SYI','','ridge','box','off','NumColumns',3); set(leg,'FontSize',7,'Location','south'); leg.ItemTokenSize = [30*0.5,18*0.5];
+p = plot([datetime('22-Apr-2020') datetime('05-May-2020')],[907.4 903.0],'o','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % RMRF ridge density
+leg = legend('FYI','SYI','','Ridge','box','off','NumColumns',3); set(leg,'FontSize',7,'Location','south'); leg.ItemTokenSize = [30*0.5,18*0.5];
 hYLabel = ylabel('Density (kg / m^3)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([878 921]); yticks(880:10:920);
 ax = gca; ax.XTick = datetime(['01-Oct-2019';'01-Dec-2019';'01-Feb-2020';'01-Apr-2020';'01-Jun-2020';'01-Aug-2020']); datetick('x','mmm','keepticks'); xtickangle(0); % time
 
 nexttile % air volume
-p = plot(t_fy(~isnan(vg_pr_bulk_fy)),vg_pr_bulk_fy(~isnan(vg_pr_bulk_fy))/10,'o-'); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on
-p = plot(t_sy([1:3 5:14]),vg_pr_bulk_sy([1:3 5:14])/10,'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-p = plot(t_sy(15:18),vg_pr_bulk_sy(15:18)/10,'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color'));
-p = plot(t_cor_ridge,vg_ridge,'o-','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % leg 4 ridges
+p = plot(t_fy(~isnan(vg_pr_bulk_fy)),vg_pr_bulk_fy(~isnan(vg_pr_bulk_fy))/10,'o-'); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); hold on % FYI coring
+p = plot(t_sy([1:3 5:14]),vg_pr_bulk_sy([1:3 5:14])/10,'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring, winter
+p = plot(t_sy(15:18),vg_pr_bulk_sy(15:18)/10,'o-','Color',c{2}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % SYI coring, summer
+p = plot(t_cor_ridge,vg_ridge,'o-','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % leg 4 ridges, doi:10.1594/PANGAEA.953865
 p = plot([datetime('22-Apr-2020') datetime('05-May-2020')],[2.81 2.13],'o','Color',c{4}); p.MarkerSize = 1.5; set(p,'markerfacecolor',get(p,'color')); % RMRF, leg 3
 leg = legend('FYI','SYI','','Ridge','','box','off','NumColumns',3); set(leg,'FontSize',7,'Location','north'); leg.ItemTokenSize = [30*0.5,18*0.5];
 hYLabel = ylabel('Air volume (%)'); set(gca,'FontSize',9,'FontWeight','normal'); set(hYLabel,'FontSize',8,'FontWeight','normal'); ylim([0 8]); yticks(0:2:8);
@@ -837,17 +836,17 @@ t_0 = (datetime('01-Jan-0000 00:00')); t_alt = t_0 + days(time-1);
 lat = ncread('uit_cryosat2_seaicethickness_nh_80km_v1p7.nc','Latitude');
 lon = ncread('uit_cryosat2_seaicethickness_nh_80km_v1p7.nc','Longitude');
 hi = ncread('uit_cryosat2_seaicethickness_nh_80km_v1p7.nc','Sea_Ice_Thickness');
-range = 217+12:237; t_alt = t_alt(range); hi = hi(:,:,range);
+range = 217+12:237; t_alt = t_alt(range); hi = hi(:,:,range); % estimates for selected time range
 for i = 1:length(t_alt)
     [~,idx(i)] = min(((lat(:)-lat_CO(i)).^2+(lon(:)-lon_CO(i)).^2)); [idx_2D(1,i),idx_2D(2,i)] = ind2sub(size(lat),idx(i)); % GPS index of MOSAiC CO2
-    hi_alt(i) = nanmean(nanmean(-hi(idx_2D(1,i)-1:idx_2D(1,i)+1,idx_2D(2,i)-1:idx_2D(2,i)+1,i))); % Landy, 3x3 grid
+    hi_alt(i) = nanmean(nanmean(-hi(idx_2D(1,i)-1:idx_2D(1,i)+1,idx_2D(2,i)-1:idx_2D(2,i)+1,i))); % 3x3 grid around CO2
 end
 
 rho_fyi_imb = interp1(datenum(t_fy),rho_si_pr_bulk_fy,datenum(t_IMB'),'linear','extrap'); % interpolation of FYI bulk density for IMB
 t_sp = datetime(['03-May-2020';'22-Jun-2020';'06-Jul-2020';'20-Jul-2020';'27-Jul-2020']); % snow pits, June-July 2020
-rho_sn_sp =     [         295         416.7         420.5         427.5          389.5];
+rho_sn_sp =     [         295         416.7         420.5         427.5          389.5]; % snow pit density
 rho_sn_imb = interp1(datenum(t_sp),rho_sn_sp,datenum(t_IMB'),'linear','extrap'); % interpolation of snow bulk density for IMB
-rho_sw_imb = 1024;
+rho_sw_imb = 1024; % seawater density
 d_imb = -(rho_fyi_imb.*hi_imb+rho_sn_imb.*hs_imb)./rho_sw_imb; fb_imb = d_imb+hi_imb; % raw observations
 rho_sw_c1 = 1024; rho_fyi_c1 = 917; rho_sn_c1 = 300; pen = 0.1; fb_imb_c1 = fb_imb; hs_imb_c1 = hs_imb; % retrieval from IMB freeboard estimate
 hi_imb_c1 = (rho_sw_c1.*fb_imb_c1 + rho_sn_c1.*hs_imb_c1 + pen*hs_imb.*rho_sw_c1)./(rho_sw_c1-rho_fyi_c1);
@@ -866,16 +865,6 @@ leg = legend('CryoSat-2','IMB, 70 % pen., const. snow load','IMB, const. snow lo
 hYLabel = ylabel('Accumulated ice melt (m)'); set([hYLabel gca],'FontSize',8,'FontWeight','normal'); set(gca,'FontSize',7,'FontWeight','normal'); ylim([-0.1 3.5]);
 t_start = datetime('01-May-2020'); t_end = datetime('01-Aug-2020'); xlim([t_start t_end]); datetick('x','mmm','keepticks'); xtickangle(0);
 set(gca,'FontSize',8,'FontWeight','normal');
-
-% nexttile
-% p = plot(t_alt,-min(hi_alt)+hi_alt,'o','color',c{1}); p.MarkerSize = 2.5; set(p,'markerfacecolor',get(p,'color')); hold on % Landy
-% plot(t_IMB,-hi_imb-9*hs_imb-min(-hi_imb-9*hs_imb),'-','color',c{2},'LineWidth',1.0); % Total melt, IMB
-% plot(t_IMB,-hi_imb+max(hi_imb),'-','color',c{3},'LineWidth',1.0); % Ice melt, IMB
-% p = plot(t_alt,-min(hi_alt)+hi_alt,'o','color',c{1}); p.MarkerSize = 2.5; set(p,'markerfacecolor',get(p,'color')); % Landy
-% leg = legend('CryoSat-2','IMB, 0 % snow penetration','IMB, 100 % snow penetration','box','off','NumColumns',1); set(leg,'FontSize',7,'Location','best'); leg.ItemTokenSize = [30*0.66,18*0.66];
-% hYLabel = ylabel('Accumulated ice melt (m)'); set([hYLabel gca],'FontSize',8,'FontWeight','normal'); set(gca,'FontSize',7,'FontWeight','normal'); ylim([-0.1 3.0]);
-% t_start = datetime('01-May-2020'); t_end = datetime('01-Aug-2020'); xlim([t_start t_end]); datetick('x','mmm','keepticks'); xtickangle(0);
-% set(gca,'FontSize',8,'FontWeight','normal');
 
 annotation('textbox',[0.01 .51 0.01 .51],'String','(a)','FontSize',8,'EdgeColor','none','HorizontalAlignment','center');
 annotation('textbox',[0.22 .51 0.22 .51],'String','(b)','FontSize',8,'EdgeColor','none','HorizontalAlignment','center');
@@ -1064,7 +1053,7 @@ annotation('textbox',[0.185 .51/2 0.185 .51/2],'String','(f)','FontSize',8,'Edge
 annotation('textbox',[0.34 .51/2 0.34 .51/2],'String','(g)','FontSize',8,'EdgeColor','none','HorizontalAlignment','center');
 annotation('textbox',[0.495 .51/2 0.495 .51/2],'String','(i)','FontSize',8,'EdgeColor','none','HorizontalAlignment','center');
 
-%% Figure 6: ALS freeboard for FYI ROV site: 10 May, 30 June, 17 July, 22 July 
+%% Figure 6: ALS freeboard for FYI ROV site: 10 May, 30 June, 17 July, 22 July, and draft for FYI ROV site from sonar
 clear; clc;
 tile = tiledlayout(2,4); tile.TileSpacing = 'compact'; tile.Padding = 'compact';
 
@@ -1244,7 +1233,7 @@ for i=1:7
     ZZ_fyi{i} = ZZ_clean{i};
     ZZ_fyi{i}(inside==0) = NaN;
 end
-
+% ROV FYI site, ice draft for selected scans
 for i = [1 3 6 7]
     nexttile
     x_off = -419.7; y_off = -60;
