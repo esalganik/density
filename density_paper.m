@@ -262,7 +262,7 @@ x = 0:0.5:(size(dem,1)/2-0.5); x = x-4895; x = x/1000;
 y = 0:0.5:(size(dem,2)/2-0.5); y = -(y-4972); y = y/1000;
 J = imrotate(dem(:,:,1:3),-124.2,'bilinear','crop');
 
-%% Figure 2: map, orthomosaic and density contourplot
+%% Figure 2: map, orthomosaic and density contourplot (6.2 x 2.2 in)
 figure
 tile = tiledlayout(1,3); tile.TileSpacing = 'compact'; tile.Padding = 'compact'; ax = gobjects(1,3);
 ax(1) = nexttile; % bathymetry with ice floe drift trajectory
@@ -274,6 +274,8 @@ edge0728_85(1,2) = edge0728_85(1,2)-0.1; m_line(smooth(edge0728_85(:,1),5,'sgola
 m_line(smooth(edge0728_15(:,1),5,'sgolay'),smooth(edge0728_15(:,2),5,'sgolay'),'color','k','linewi',0.05); % sea ice edge AMSR2, 15%
 clim([-6000 0]);
 colormap(ax(1),m_colmap('blue'));
+[ax,~]=m_contfbar(.82,[1.0 1.8],[-6000 0],-6000:100:0,'edgecolor','none','endpiece','no','axfrac',.03,'tickdir','out'); title(ax,'Depth (m)','fontsize',6,'fontweight','normal'); % vert. colorbar settings
+set(ax,'fontsize',6);
 C = linspecer(length(7500:13165)); % Jonathan C. Lansey (2025), https://www.mathworks.com/matlabcentral/fileexchange/42673-beautiful-and-distinguishable-line-colors-colormap
 m_line(long_gps_T66(9037:13165),lat_gps_T66(9037:13165),'color',c{2},'linewi',2.0); hold on % drift during sonar surveys
 for i = 9038:10:13165
